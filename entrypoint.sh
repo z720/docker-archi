@@ -61,18 +61,18 @@ while (( "$#" )); do
         exit 1
       fi
       ;;
-    -*|--*=) # unsupported flags
-      echo "Error: Unsupported flag $1" >&2
-      exit 1
-      ;;
-    *) # preserve positional arguments
-      PARAMS="$PARAMS $1"
-      shift
-      ;;
+    # -*|--*=) # unsupported flags
+    #   echo "Error: Unsupported flag $1 ($@)" >&2
+    #   exit 1
+    #   ;;
+    # *) # preserve positional arguments
+    #   PARAMS="$PARAMS $1"
+    #   shift
+    #   ;;
   esac
 done
 # set positional arguments in their proper place
-eval set -- "$PARAMS"
+# eval set -- "$PARAMS"
 
 # Run Archi in the command line
 /opt/Archi/Archi -application com.archimatetool.commandline.app \
