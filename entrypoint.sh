@@ -1,5 +1,8 @@
 #! /bin/bash
 
+echo "Working dir: `pwd`"
+echo "Starting Archi CLI with $@"
+
 # Setup display
 Xvfb :99 &
 export DISPLAY=:99
@@ -20,6 +23,7 @@ while (( "$#" )); do
 			exit 0
       ;;
     -m|--model)
+      echo "Try to load model $2"
       if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
         ARGS="$ARGS --modelrepository.loadModel $2"
         shift 2
@@ -29,6 +33,7 @@ while (( "$#" )); do
       fi
       ;;
     --pluginDir)
+      echo "Try to load plugins in $2"
       if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
         PLUGINDIR="$2"
         shift 2
@@ -44,6 +49,7 @@ while (( "$#" )); do
       fi
       ;;
 		--script)
+      echo "Try to execute script $2"
       if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
         ARGS="$ARGS --script.runScript $2"
         shift 2
@@ -53,6 +59,7 @@ while (( "$#" )); do
       fi
       ;;
 		--html)
+      echo "Try to generate HTML reports in $2"
       if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
         ARGS="$ARGS --html.createReport $2"
         shift 2
