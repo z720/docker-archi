@@ -50,6 +50,7 @@ while (( "$#" )); do
       ;;
 		--script)
       echo "Try to execute script $2"
+      if [ -z "$PLUGINDIR" ]; then echo "WARNING: --pluginDir not provided: Script might not execute at all..."; fi
       if [ -n "$2" ] && [ ${2:0:1} != "-" ]; then
         ARGS="$ARGS --script.runScript $2"
         shift 2
@@ -83,5 +84,4 @@ done
 
 # Run Archi in the command line
 /opt/Archi/Archi -application com.archimatetool.commandline.app \
-	-consoleLog -nosplash --options \
-	$ARGS
+	-consoleLog -nosplash $ARGS
