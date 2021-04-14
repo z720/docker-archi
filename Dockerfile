@@ -27,8 +27,12 @@ VOLUME [ /data ]
 
 # Entrypoint and prepare settings overwrite
 COPY entrypoint.sh /entrypoint.sh
+COPY archi-wrapper.sh /opt/Archi/archi-wrapper.sh
 RUN chmod +x /entrypoint.sh && \
+		chmod +x /opt/Archi/archi-wrapper.sh && \
+		ln -s /opt/Archi/archi-wrapper.sh /usr/local/bin/archi && \
     mkdir -p "/root/.archi4/.metadata/.plugins/org.eclipse.core.runtime/.settings"
-ENTRYPOINT ["/entrypoint.sh"]
-
 COPY com.archimatetool.script.prefs /root/.archi4/.metadata/.plugins/org.eclipse.core.runtime/.settings
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD [ "archi", "--help" ]
