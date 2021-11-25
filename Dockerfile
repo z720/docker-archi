@@ -1,7 +1,7 @@
 FROM debian:buster
 
-ENV ARCHI_VERSION=4.8.1
-ENV COARCHI_VERSION=0.7.1.202102021056
+ENV ARCHI_VERSION=4.9.1
+ENV COARCHI_VERSION=0.8.0.202110121448
 
 # Install Windows Manager dependecies and tools (wget, tar, zip...)
 RUN apt-get update -y && \
@@ -9,8 +9,8 @@ RUN apt-get update -y && \
 		rm -rf /var/lib/apt/lists && \
 		mkdir -p /usr/share/desktop-directories 
 
-# Install Archi
-RUN wget --post-data="dl=Archi-Linux64-${ARCHI_VERSION}.tgz" -o "Archi-Linux64-${ARCHI_VERSION}.tgz" "https://www.archimatetool.com/downloads/archi/" && \
+# Install Archi https://www.archimatetool.com/downloads/archi/
+RUN wget --post-data="dl=${ARCHI_VERSION}/Archi-Linux64-${ARCHI_VERSION}.tgz" -o "Archi-Linux64-${ARCHI_VERSION}.tgz" "https://www.archimatetool.com/downloads/archi/" && \
 		tar zxvf "index.html" -C /opt/ && \
 		rm "Archi-Linux64-${ARCHI_VERSION}.tgz" && \
 		rm "index.html" && \
@@ -18,9 +18,9 @@ RUN wget --post-data="dl=Archi-Linux64-${ARCHI_VERSION}.tgz" -o "Archi-Linux64-$
 		mkdir -p /root/.archi4/dropins
 
 # Install CoArchi plugin 
-RUN wget "https://www.archimatetool.com/downloads/coarchi/org.archicontribs.modelrepository_${COARCHI_VERSION}.archiplugin" && \
-    unzip "org.archicontribs.modelrepository_${COARCHI_VERSION}.archiplugin" -d /root/.archi4/dropins && \
-		rm "org.archicontribs.modelrepository_${COARCHI_VERSION}.archiplugin" /root/.archi4/dropins/archi-plugin
+RUN wget "https://www.archimatetool.com/downloads/coarchi1/coArchi_${COARCHI_VERSION}.archiplugin" && \
+    unzip "coArchi_${COARCHI_VERSION}.archiplugin" -d /root/.archi4/dropins && \
+		rm "coArchi_${COARCHI_VERSION}.archiplugin" /root/.archi4/dropins/archi-plugin
 
 # User space by default
 VOLUME [ /data ]		
