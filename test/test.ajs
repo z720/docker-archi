@@ -1,0 +1,2 @@
+console.log('Start test script');
+console.log($(view).first().children('diagram-model-note').first().name);
