@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<archimate:model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:archimate="http://www.archimatetool.com/archimate" name="test-container" id="id-3fc7f1e2ac814177ac80ef1067f051f3" version="4.9.0">
+<archimate:model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:archimate="http://www.archimatetool.com/archimate" name="test-container" id="id-3fc7f1e2ac814177ac80ef1067f051f3" version="5.0.0">
   <folder name="Strategy" id="id-82b6571df14343aba8bf2667859bbe5e" type="strategy"/>
   <folder name="Business" id="id-1d8b8c299677497386afa4e9fcef75c7" type="business"/>
   <folder name="Application" id="id-e745071cbccb442cb5229a1329d3172e" type="application"/>
@@ -16,4 +16,5 @@
       </child>
     </element>
   </folder>
+  <purpose>Support for Archi 5</purpose>
 </archimate:model>

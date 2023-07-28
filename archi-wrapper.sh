@@ -79,5 +79,6 @@ done
 # eval set -- "$PARAMS"
 
 # Run Archi in the command line
+echo /opt/Archi/Archi -application com.archimatetool.commandline.app -consoleLog -nosplash $ARGS
 /opt/Archi/Archi -application com.archimatetool.commandline.app \
 	-consoleLog -nosplash $ARGS
