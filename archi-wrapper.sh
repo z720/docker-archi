@@ -77,8 +77,8 @@ while (( "$#" )); do
 done
 # set positional arguments in their proper place
 # eval set -- "$PARAMS"
-
+ 
 # Run Archi in the command line
-echo /opt/Archi/Archi -application com.archimatetool.commandline.app -consoleLog -nosplash $ARGS
-/opt/Archi/Archi -application com.archimatetool.commandline.app \
+echo /archi/app/Archi -application com.archimatetool.commandline.app -consoleLog -nosplash $ARGS
+/archi/app/Archi -application com.archimatetool.commandline.app \
 	-consoleLog -nosplash $ARGS

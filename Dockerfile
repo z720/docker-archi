@@ -29,7 +29,7 @@ COPY --from=git /sources/archi /sources/archi
 WORKDIR /sources/archi
 RUN sed -i 's|</environments>|<environment><os>linux</os><ws>gtk</ws><arch>aarch64</arch></environment></environments>|g'  /sources/archi/pom.xml
 RUN mvn clean package -P product
-
+RUN chmod +x /sources/archi/com.archimatetool.editor.product/target/products/com.archimatetool.editor.product/linux/gtk/aarch64/Archi/Archi;
 
 ######################################################################################################################
 # Runtime ########################
@@ -46,6 +46,31 @@ RUN apt-get update -y && \
 
 ENV ARCHI_VERSION=5.0.2
 ENV COARCHI_VERSION=0.8.8
+
+
+COPY --from=editorbuilder /sources/archi/com.archimatetool.editor.product/target/products/com.archimatetool.editor.product/linux/gtk/aarch64/Archi/ /archi/app
+RUN mkdir -p /archi/app/dropins
+COPY --from=dl /downloads/coArchi_${COARCHI_VERSION}.archiplugin /archi/app/dropins/
+COPY plugins/* /archi/app/dropins/
+
+# RUN chmod +x /archi/app/Archi;
+
+# RUN shopt -s nullglob; 
+RUN for z in /archi/app/dropins/*.archiplugin; do echo "Try to activate plugin $z"; unzip -o "$z" -d /archi/app/dropins; done
+# User space by default
+VOLUME ["/data"]
+
+# Entrypoint and prepare settings overwrite
+COPY entrypoint.sh /entrypoint.sh
+COPY archi-wrapper.sh /archi/app/archi-wrapper.sh
+
+RUN chmod +x /entrypoint.sh  && \
+		chmod +x /archi/app/archi-wrapper.sh && \
+		ln -s /archi/app/archi-wrapper.sh /usr/local/bin/archi
+# RUN mkdir -p /root/.archi4/.metadata/.plugins/org.eclipse.core.runtime/.settings
+# RUN mkdir -p /archi/.archi4/.metadata/.plugins/org.eclipse.core.runtime/.settings
+# COPY com.archimatetool.script.prefs /archi/.archi4/.metadata/.plugins/org.eclipse.core.runtime/.settings
+
 ARG UID=1000
 
 RUN set -eux; \
@@ -53,32 +78,11 @@ RUN set -eux; \
     groupadd --gid "$UID" archi; \
     useradd --uid "$UID" --gid archi --shell /bin/bash \
       --home-dir /archi --create-home archi; \
+    mkdir -p /archi/app; \
     chown -R "$UID:0" /archi; \
     chmod -R g+rw /archi;
 
 USER archi
-
-COPY --from=editorbuilder /sources/archi/com.archimatetool.editor.product/target/products/com.archimatetool.editor.product/linux/gtk/aarch64/Archi/ /opt/Archi
-RUN mkdir -p /opt/Archi/dropins
-COPY --from=dl /downloads/coArchi_${COARCHI_VERSION}.archiplugin /opt/Archi/dropins/
-COPY plugins/* /opt/Archi/dropins/
-
-RUN chmod +x /opt/Archi/Archi;
-
-# RUN shopt -s nullglob; 
-RUN for z in /opt/Archi/dropins/*.archiplugin; do echo "Try to activate plugin $z"; unzip -o "$z" -d /opt/Archi/dropins; done
-# User space by default
-VOLUME ["/data"]
-
-# Entrypoint and prepare settings overwrite
-COPY entrypoint.sh /entrypoint.sh
-COPY archi-wrapper.sh /opt/Archi/archi-wrapper.sh
-RUN chmod +x /entrypoint.sh  && \
-		chmod +x /opt/Archi/archi-wrapper.sh && \
-		ln -s /opt/Archi/archi-wrapper.sh /usr/local/bin/archi
-# RUN mkdir -p /root/.archi4/.metadata/.plugins/org.eclipse.core.runtime/.settings
-# RUN mkdir -p /archi/.archi4/.metadata/.plugins/org.eclipse.core.runtime/.settings
-# COPY com.archimatetool.script.prefs /archi/.archi4/.metadata/.plugins/org.eclipse.core.runtime/.settings
 
 WORKDIR /data
 
