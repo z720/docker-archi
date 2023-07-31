@@ -29,7 +29,6 @@ COPY --from=git /sources/archi /sources/archi
 WORKDIR /sources/archi
 RUN sed -i 's|</environments>|<environment><os>linux</os><ws>gtk</ws><arch>aarch64</arch></environment></environments>|g'  /sources/archi/pom.xml
 RUN mvn clean package -P product
-RUN chmod +x /sources/archi/com.archimatetool.editor.product/target/products/com.archimatetool.editor.product/linux/gtk/aarch64/Archi/Archi;
 
 ######################################################################################################################
 # Runtime ########################
@@ -47,13 +46,15 @@ RUN apt-get update -y && \
 ENV ARCHI_VERSION=5.0.2
 ENV COARCHI_VERSION=0.8.8
 
-
-COPY --from=editorbuilder /sources/archi/com.archimatetool.editor.product/target/products/com.archimatetool.editor.product/linux/gtk/aarch64/Archi/ /archi/app
+ARG TARGETPLATFORM
+COPY --from=editorbuilder /sources/archi/com.archimatetool.editor.product/target/products/com.archimatetool.editor.product/linux/gtk/aarch64/Archi/ /archi/arm64
+COPY --from=editorbuilder /sources/archi/com.archimatetool.editor.product/target/products/com.archimatetool.editor.product/linux/gtk/x86_64/Archi/ /archi/amd64
+RUN TARGET=$(echo "${TARGETPLATFORM}" | cut -d "/" -f 2); echo $TARGET; ln -s /archi/${TARGET} /archi/app;
 RUN mkdir -p /archi/app/dropins
 COPY --from=dl /downloads/coArchi_${COARCHI_VERSION}.archiplugin /archi/app/dropins/
 COPY plugins/* /archi/app/dropins/
 
-# RUN chmod +x /archi/app/Archi;
+RUN chmod +x /archi/app/Archi;
 
 # RUN shopt -s nullglob; 
 RUN for z in /archi/app/dropins/*.archiplugin; do echo "Try to activate plugin $z"; unzip -o "$z" -d /archi/app/dropins; done
