@@ -1,0 +1,11 @@
+
+
+# clone in volume
+podman run -it -v archi-repo:/git  alpine/git clone https://github.com/archimatetool/archi.git 
+
+
+# Build maven
+
+podman run -it -v archi-repo:/data -w /data/archi  maven:3.8-openjdk-11 mvn clean package -P product
+
+

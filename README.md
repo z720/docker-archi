@@ -9,7 +9,7 @@ Basically a wrapper for `Archi -application com.archimatetool.commandline.app -c
 Run the following command to generate the HTML report:
 
 ```shell
-docker run --rm -it -v="`pwd`":/data z720/archi -m /data --script /data/scripts/archi-report-script/generateReports.ajs --html /data/html --pluginDir /data/plugins
+docker run --rm -it -v="`pwd`":/data z720/archi archi -m /data --script /data/scripts/archi-report-script/generateReports.ajs --html /data/html --pluginDir /data/plugins
 ```
 
 If you have a compiled version of the JArchi script plugin (see [Github project](https://github.com/archimatetool/archi-scripting-plugin) or get a binary version from the [Archi project Patreon page](https://www.patreon.com/architool/posts?filters[tag]=jArchi).)
@@ -17,7 +17,7 @@ If you have a compiled version of the JArchi script plugin (see [Github project]
 You can run the script `report.ajs` by placing the `.archiplugin` file in the `plugins` directory with the following command:
 
 ```shell
-docker run --rm -it -v="`pwd`":/data z720/archi -m /data --script /data/report.ajs --pluginDir /data/plugins
+docker run --rm -it -v="`pwd`":/data z720/archi archi -m /data --script /data/report.ajs --pluginDir /data/plugins
 ```
 
 ## Available options

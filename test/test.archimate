@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<archimate:model xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:archimate="http://www.archimatetool.com/archimate" name="test-container" id="id-3fc7f1e2ac814177ac80ef1067f051f3" version="5.0.0">
+  <folder name="Strategy" id="id-82b6571df14343aba8bf2667859bbe5e" type="strategy"/>
+  <folder name="Business" id="id-1d8b8c299677497386afa4e9fcef75c7" type="business"/>
+  <folder name="Application" id="id-e745071cbccb442cb5229a1329d3172e" type="application"/>
+  <folder name="Technology &amp; Physical" id="id-6245905bf812451caa1d773d78c5ad08" type="technology"/>
+  <folder name="Motivation" id="id-88243a73ce2a42a2babd3c8af4d6703b" type="motivation"/>
+  <folder name="Implementation &amp; Migration" id="id-c5a10b20dec64ccebc1be2bc17de9efe" type="implementation_migration"/>
+  <folder name="Other" id="id-cb8de068f46a48139b6fd24b9f7ef0e5" type="other"/>
+  <folder name="Relations" id="id-1698caa72daa405182c74c06b9e34193" type="relations"/>
+  <folder name="Views" id="id-94cf6ee7455743c0aac912479e2aa199" type="diagrams">
+    <element xsi:type="archimate:ArchimateDiagramModel" name="Default View" id="id-f078c3d250114b8e9240d7a2d4174238">
+      <child xsi:type="archimate:Note" id="id-8f102e3ca79643439dcdab33d14e1c90" textAlignment="1">
+        <bounds x="32" y="18" width="185" height="80"/>
+        <content>&quot;Empty&quot; Model to test containerized Archi (scripts/reports)</content>
+      </child>
+    </element>
+  </folder>
+  <purpose>Support for Archi 5</purpose>
+</archimate:model>
