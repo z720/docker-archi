@@ -56,6 +56,7 @@ COPY plugins/* /archi/app/dropins/
 
 RUN chmod +x /archi/app/Archi;
 
+
 # RUN shopt -s nullglob; 
 RUN for z in /archi/app/dropins/*.archiplugin; do echo "Try to activate plugin $z"; unzip -o "$z" -d /archi/app/dropins; done
 # User space by default
